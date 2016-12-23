@@ -1,6 +1,6 @@
 package imgorg.bin;
 
-import imgorg.core.Image;
+import imgorg.core.Media;
 
 import static java.nio.file.StandardCopyOption.*;
 import java.io.File;
@@ -21,18 +21,18 @@ public class CreateFolderStructureHere {
 			System.exit(1);
 		}
 		
-		Set<Image> imagesList = new HashSet<Image>();
+		Set<Media> imagesList = new HashSet<Media>();
 		System.out.println("Parsing files...");
 		File base = new File(args[0]);
 		for(File file : base.listFiles()) {
-			Image i = Image.createFromFile(file);
+			Media i = Media.createFromFile(file);
 			if (i != null) {
 				imagesList.add(i);
 			}
 		}
 		
 		System.out.println("Moving files...");
-		for (Image i : imagesList) {
+		for (Media i : imagesList) {
 			System.out.println(i);
 			File targetPath = i.getTargetPath();
 			if (targetPath != null) {

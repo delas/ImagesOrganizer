@@ -6,25 +6,25 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.sanselan.ImageReadException;
-import org.apache.sanselan.Sanselan;
-import org.apache.sanselan.common.IImageMetadata;
-import org.apache.sanselan.formats.jpeg.JpegImageMetadata;
-import org.apache.sanselan.formats.tiff.TiffField;
-import org.apache.sanselan.formats.tiff.constants.ExifTagConstants;
-import org.apache.sanselan.formats.tiff.constants.TiffTagConstants;
+import org.apache.commons.imaging.ImageReadException;
+import org.apache.commons.imaging.Imaging;
+import org.apache.commons.imaging.common.ImageMetadata;
+import org.apache.commons.imaging.formats.jpeg.JpegImageMetadata;
+import org.apache.commons.imaging.formats.tiff.TiffField;
+import org.apache.commons.imaging.formats.tiff.constants.ExifTagConstants;
+import org.apache.commons.imaging.formats.tiff.constants.TiffTagConstants;
 
-public class JpegImage extends Image {
+public class ImageJpeg extends Media {
 
-	protected JpegImageMetadata metadata;
+	protected JpegImageMetadata metadata = null;
 	
-	protected JpegImage(File file) {
+	protected ImageJpeg(File file) {
 		super(file);
 		
-		if (Sanselan.hasImageFileExtension(file)) {
+		if (Imaging.hasImageFileExtension(file)) {
 			try {
 				this.file = file;
-				IImageMetadata metadata = Sanselan.getMetadata(file);
+				ImageMetadata metadata = Imaging.getMetadata(file);
 				if (metadata instanceof JpegImageMetadata) {
 					this.metadata = (JpegImageMetadata) metadata;
 				}
