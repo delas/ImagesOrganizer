@@ -9,12 +9,10 @@ import java.nio.file.Files;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.xml.transform.TransformerException;
-import javax.xml.xpath.XPathExpressionException;
 
 public class CreateFolderStructureHere {
 
-	public static void main(String[] args) throws IOException, TransformerException, XPathExpressionException {
+	public static void main(String[] args) {
 
 		if (args.length != 1) {
 			System.err.println("Use: CreateFolderStructureHere PATH_TO_FILES");
@@ -38,11 +36,19 @@ public class CreateFolderStructureHere {
 			if (targetPath != null) {
 				if (!targetPath.exists()) {
 					System.out.println("Creating folder structure...");
-					Files.createDirectories(targetPath.toPath());
+					try {
+						Files.createDirectories(targetPath.toPath());
+					} catch (IOException e) {
+						System.out.println("OUCH! [" + e.getMessage() + "]");
+					}
 				}
 				
 				System.out.println("Moving file...");
-				Files.move(i.getFile().toPath(), i.getTargetFile().toPath(), ATOMIC_MOVE);
+				try {
+					Files.move(i.getFile().toPath(), i.getTargetFile().toPath(), ATOMIC_MOVE);
+				} catch (IOException e) {
+					System.out.println("OUCH! [" + e.getMessage() + "]");
+				}
 			}
 		}
 		
